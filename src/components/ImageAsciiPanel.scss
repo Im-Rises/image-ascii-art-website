@@ -1,0 +1,60 @@
+.Camera-Ascii-Panel {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+}
+
+.Camera-Ascii-Waiting {
+  font-size: 2rem;
+  color: #fff;
+  text-align: center;
+}
+
+.Button-Copy-Clipboard {
+  position: absolute;
+  top: 6%;
+  right: 0;
+  text-align: center;
+  cursor: pointer;
+  justify-content: center;
+  padding: 0.5rem;
+  //border: 0.1rem solid #fff;
+  border-radius: 0.2rem;
+  margin: 0.5rem;
+  width: 3rem;
+  background-color: #fff;
+  color: #000;
+}
+
+.Button-Copy-Clipboard:hover {
+  background-color: #AAA;
+  color: #AAA;
+}
+
+.Button-Toggle-Mode {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  padding: 0.5rem;
+  border: 0.1rem solid #fff;
+  border-radius: 0.2rem;
+  margin: 0.5rem;
+  width: 3rem;
+}
+
+.Button-Toggle-Mode:hover {
+  opacity: 0.5;
+}
+
+.Button-Toggle-Color {
+  background: linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(0, 255, 0, 1) 35%, rgba(0, 0, 255, 1) 100%);
+}
+
+.Button-Toggle-BW {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
