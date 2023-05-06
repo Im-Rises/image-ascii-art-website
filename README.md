@@ -18,7 +18,9 @@ This is a simple web demo of the `image-ascii-art` package that converts a image
 
 The installation and usage of the package is explained in the package's README.
 
-The example is using the webcam of your device, but you can use any video stream, like a video file or a video stream.
+The demo is taking an input image and converting it into ASCII art.
+There are three buttons to change the art style between black/white and color, you can also copy to clipboard the ASCII
+art and change the input image to another one.
 
 ## Screenshots
 
@@ -27,22 +29,6 @@ The example is using the webcam of your device, but you can use any video stream
 ## Dependencies
 
 The project is using React, TypeScript, JavaScript, SCSS, CSS, etc...
-
-You can find the dependencies in the `dependencies` folder.
-
-## Deployment
-
-To deploy the website, you need to run the following command:
-
-```bash
-npm run deploy
-```
-
-or if you are using yarn:
-
-```bash 
-yarn deploy
-```
 
 ## Code style
 
@@ -74,9 +60,6 @@ ESLint:
 
 GitHub gh-pages:  
 <https://github.com/gitname/react-gh-pages>
-
-react-webcam:  
-<https://www.npmjs.com/package/react-webcam>
 
 ## Package Links
 
