@@ -15,7 +15,7 @@ const ImageAsciiPanel = () => {
 	// const [isImageSelected, setIsImageSelected] = useState(false);
 	const [imageSrc, setImageSrc] = useState<string>('');
 
-	// Calculate the chars per column according to the aspect ratio of the video
+	// Calculate the chars per column according to the aspect ratio of the image
 	const calculateCharsPerColumn = (image: HTMLImageElement) => Math.round(charsPerLine * (image.height / image.width));
 
 	// Handle the copy to clipboard button click
@@ -46,8 +46,8 @@ const ImageAsciiPanel = () => {
 			{imageSrc
 				? (
 					<>
-						<div className={'video-ascii-panel'}>
-							<div ref={parentRef} className={'video-ascii-holder'}>
+						<div className={'image-ascii-panel'}>
+							<div ref={parentRef} className={'image-ascii-holder'}>
 								<ImageAscii
 									// imageSrc={imageSrc}
 									imageSrc={demoImage}
