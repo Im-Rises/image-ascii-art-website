@@ -1,32 +1,38 @@
 .Project-Panel {
-  height: 10%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0.5rem;
 
-  &:hover {
-    color: #fff;
-  }
-}
-
-.Project-Link {
   border-radius: 0.4em;
   border-style: solid;
   border-width: 0.2em;
   color: #A9A9A9;
-  font-size: 0.6em;
-  position: absolute;
-  top: 0;
-  left: 0;
-  text-align: center;
-  margin: 0.5em;
-  padding: 0.5em;
+  background: white;
 
-  a {
-    color: gray;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 2em;
+    height: 2em;
+    margin: 0.5em;
   }
 
-  a:hover {
-    color: #fff;
+  p {
+    font-size: 0.8em;
+    color: black;
+    margin: 0 0.5em 0.5em 0.5em;
+  }
+
+  p:visited {
+    color: #0000FFA0;
+  }
+
+  &:hover {
+    background-color: #A9A9A9;
   }
 }
+
