@@ -1,6 +1,6 @@
 {
-  "short_name": "Image ASCII",
-  "name": "Image input to ASCII art",
+  "short_name": "image-ascii-art-converter",
+  "name": "Image ASCII art converter",
   "icons": [
     {
       "src": "logo.ico",
