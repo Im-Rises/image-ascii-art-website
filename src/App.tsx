@@ -1,6 +1,6 @@
-/* eslint-disable react/react-in-jsx-scope */
 import './App.scss';
 import ImageAsciiPanel from './components/ImageAsciiPanel';
+import React from 'react';
 
 const App = () => (
 	<div className='App'>
