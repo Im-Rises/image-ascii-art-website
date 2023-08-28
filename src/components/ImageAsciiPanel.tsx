@@ -1,7 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {ImageAscii, ArtTypeEnum} from 'image-ascii-art';
 import CopyImage from '../images/copy.svg';
 import './ImageAsciiPanel.scss';
+import GitHubProjectPanel from './GitHubProjectPanel';
+import {AUTHOR, GITHUB_URL} from '../constants/pixel-ascii';
 
 const ImageAsciiPanel = () => {
 	// Define the ascii art chars per line
@@ -112,6 +114,8 @@ const ImageAsciiPanel = () => {
 							}}>Select image
 							</button>
 						</div>
+						<GitHubProjectPanel link={GITHUB_URL}
+							author={AUTHOR}/>
 					</>
 				)
 			}
