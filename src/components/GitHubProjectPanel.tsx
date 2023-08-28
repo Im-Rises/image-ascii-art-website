@@ -1,3 +1,4 @@
+
 import React from 'react';
 import './GitHubProjectPanel.scss';
 import GitHubLogoImage from '../images/github.svg';

@@ -1,8 +1,6 @@
-import React, {useEffect} from 'react';
+/* eslint-disable react/react-in-jsx-scope */
 import './App.scss';
 import ImageAsciiPanel from './components/ImageAsciiPanel';
-import GitHubProjectPanel from './components/GitHubProjectPanel';
-import {AUTHOR, GITHUB_LINK_TEXT, GITHUB_URL} from './constants/pixel-ascii';
 
 const App = () => (
 	<div className='App'>
