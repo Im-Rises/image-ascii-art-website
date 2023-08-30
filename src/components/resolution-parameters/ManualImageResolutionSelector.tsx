@@ -19,7 +19,7 @@ export const ManualImageResolutionSelector = (props: ManualImageResolutionSelect
 				defaultValue={props.charsPerLine}
 				ref={charsPerLineAreaRef} min={1}
 				onChange={e => {
-					if (e.target.value === '') {
+					if (e.target.value === '' || e.target.value === '0') {
 						charsPerLineAreaRef.current!.value = props.charsPerLine.toString();
 						return;
 					}
@@ -36,7 +36,7 @@ export const ManualImageResolutionSelector = (props: ManualImageResolutionSelect
 				defaultValue={props.charsPerColumn}
 				ref={charsPerColumnAreaRef} min={1}
 				onChange={e => {
-					if (e.target.value === '') {
+					if (e.target.value === '' || e.target.value === '0') {
 						charsPerColumnAreaRef.current!.value = props.charsPerColumn.toString();
 						return;
 					}

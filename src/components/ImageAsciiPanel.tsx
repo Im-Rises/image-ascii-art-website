@@ -11,8 +11,8 @@ const ImageAsciiPanel = () => {
 	// Image data elements
 	const [image, setImage] = useState<HTMLImageElement>();
 	const [isImageReady, setIsImageReady] = useState(false);
-	const [finalCharsPerLine, setFinalCharsPerLine] = useState(0);
-	const [finalCharsPerColumn, setFinalCharsPerColumn] = useState(0);
+	const [charsPerLine, setCharsPerLine] = useState(0);
+	const [charsPerColumn, setCharsPerColumn] = useState(0);
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	// Mode resolution selection
@@ -28,6 +28,7 @@ const ImageAsciiPanel = () => {
 	const calculateCharsPerColumn = (image: HTMLImageElement) => Math.round(manualCharsPerLine * (image.height / image.width));
 	const calculateCharsPerLine = (image: HTMLImageElement) => Math.round(manualCharsPerColumn * (image.width / image.height));
 
+	// Handle image selection
 	const handleImageChange = () => {
 		if (inputRef.current?.files?.length) {
 			const file = inputRef.current.files[0];
@@ -38,11 +39,11 @@ const ImageAsciiPanel = () => {
 					img.src = reader.result as string;
 					img.onload = () => {
 						if (useAutoAspectRatio) {
-							setFinalCharsPerLine(useLineBase ? autoResolutionBase : calculateCharsPerLine(img));
-							setFinalCharsPerColumn(useLineBase ? calculateCharsPerColumn(img) : autoResolutionBase);
+							setCharsPerLine(useLineBase ? autoResolutionBase : calculateCharsPerLine(img));
+							setCharsPerColumn(useLineBase ? calculateCharsPerColumn(img) : autoResolutionBase);
 						} else {
-							setFinalCharsPerLine(manualCharsPerLine);
-							setFinalCharsPerColumn(manualCharsPerColumn);
+							setCharsPerLine(manualCharsPerLine);
+							setCharsPerColumn(manualCharsPerColumn);
 						}
 
 						setIsImageReady(true);
@@ -55,6 +56,7 @@ const ImageAsciiPanel = () => {
 		}
 	};
 
+	// Handle image ejection
 	const ejectImage = () => {
 		setIsImageReady(false);
 		setImage(undefined);
@@ -66,8 +68,8 @@ const ImageAsciiPanel = () => {
 				? (
 					<>
 						<ImageAsciiViewPage image={image!}
-							finalCharsPerLine={finalCharsPerLine}
-							finalCharsPerColumn={finalCharsPerColumn}
+							finalCharsPerLine={charsPerLine}
+							finalCharsPerColumn={charsPerColumn}
 							ejectImage={ejectImage}/>
 					</>
 				)
