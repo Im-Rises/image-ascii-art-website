@@ -2,11 +2,11 @@ import React, {useRef, useState} from 'react';
 import {ImageAscii, ArtTypeEnum} from 'image-ascii-art';
 import CopyImage from '../images/copy.svg';
 import './ImageAsciiPanel.scss';
-import GitHubProjectPanel from './GitHubProjectPanel';
+import GitHubProjectPanel from './github/GitHubProjectPanel';
 import {AUTHOR, GITHUB_URL} from '../constants/pixel-ascii';
-import {AutoImageResolutionSelector} from './AutoImageResolutionSelector';
-import {ManualImageResolutionSelector} from './ManualImageResolutionSelector';
-import {ImageAsciiViewPage} from './ImageAsciiViewPage';
+import {AutoImageResolutionSelector} from './resolution-parameters/AutoImageResolutionSelector';
+import {ManualImageResolutionSelector} from './resolution-parameters/ManualImageResolutionSelector';
+import {ImageAsciiViewPage} from './image-view-page/ImageAsciiViewPage';
 
 const ImageAsciiPanel = () => {
 	// Image data elements
@@ -83,18 +83,18 @@ const ImageAsciiPanel = () => {
 
 						<div className={'mode-selection-container'}>
 							<h2>Mode selection</h2>
-							<input type={'radio'} name={'mode-selection'} id={'mode-selection-manual'}
-								checked={!useAutoAspectRatio}
-								onChange={() => {
-									setUseAutoAspectRatio(false);
-								}}/>
-							<label htmlFor={'mode-selection-manual'}>Manual resolution</label>
 							<input type={'radio'} name={'mode-selection'} id={'mode-selection-auto'}
 								checked={useAutoAspectRatio}
 								onChange={() => {
 									setUseAutoAspectRatio(true);
 								}}/>
 							<label htmlFor={'mode-selection-auto'}>Auto resolution</label>
+							<input type={'radio'} name={'mode-selection'} id={'mode-selection-manual'}
+								checked={!useAutoAspectRatio}
+								onChange={() => {
+									setUseAutoAspectRatio(false);
+								}}/>
+							<label htmlFor={'mode-selection-manual'}>Manual resolution</label>
 						</div>
 
 						<div className={'image-input-container'}>

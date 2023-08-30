@@ -1,7 +1,7 @@
 import {ArtTypeEnum, ImageAscii} from 'image-ascii-art';
-import CopyImage from '../images/copy.svg';
+import CopyImage from '../../images/copy.svg';
 import React, {useState} from 'react';
-import './ImageAsciiPanel.scss';
+import './ImageAsciiViewPage.scss';
 
 type ImageAsciiViewPageProps = {
 	image: HTMLImageElement;
