@@ -6,18 +6,24 @@ import GitHubProjectPanel from './GitHubProjectPanel';
 import {AUTHOR, GITHUB_URL} from '../constants/pixel-ascii';
 
 const ImageAsciiPanel = () => {
-	// Define the ascii art chars per line
-	const [charsPerLine, setCharsPerLine] = useState(200);
-	const [charsPerColumn, setCharsPerColumn] = useState(0);
+	// Image data elements
+	const [charsPerLine, setCharsPerLine] = useState(160);
+	const [charsPerColumn, setCharsPerColumn] = useState(90);
 	const [image, setImage] = useState<HTMLImageElement>();
 	const [isImageReady, setIsImageReady] = useState(false);
 	const [useColor, setUseColor] = useState(false);
 
+	// Settings elements
 	const preTagRef = useRef<HTMLPreElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const parentRef = useRef<HTMLDivElement>(null);
+	const keepAspectRatioCheckboxRef = useRef<HTMLInputElement>(null);
+	const charsPerLineAreaRef = useRef<HTMLInputElement>(null);
+	const charsPerColumnAreaRef = useRef<HTMLInputElement>(null);
+	const [aspectRatio, setAspectRatio] = useState(charsPerLine / charsPerColumn);
 
-	const calculateCharsPerColumn = (image: HTMLImageElement) => Math.round(charsPerLine * (image.height / image.width));
+	// const calculateCharsPerColumn = (image: HTMLImageElement) => Math.round(charsPerLine * (image.height / image.width));
+	// const calculateCharsPerLine = (image: HTMLImageElement) => Math.round(charsPerColumn * (image.width / image.height));
 
 	// Handle the copy to clipboard button click
 	const copyToClipboard = async (text: string) => {
@@ -38,7 +44,6 @@ const ImageAsciiPanel = () => {
 					const img = new Image();
 					img.src = reader.result as string;
 					img.onload = () => {
-						setCharsPerColumn(calculateCharsPerColumn(img));
 						setIsImageReady(true);
 						setImage(img);
 					};
@@ -107,12 +112,30 @@ const ImageAsciiPanel = () => {
 					<>
 						<h1 className={'app-title'}>Image ASCII</h1>
 						<div className={'image-input-container'}>
-							<input type={'number'} placeholder={'Chars per line'} onChange={e => {
-								setCharsPerLine(parseInt(e.target.value, 10));
-							}}/>
-							<input type={'number'} placeholder={'Chars per column'} onChange={e => {
-								setCharsPerColumn(parseInt(e.target.value, 10));
-							}}/>
+							<input type={'number'} placeholder={'Chars per line'} defaultValue={charsPerLine}
+								ref={charsPerLineAreaRef} min={1}
+								onChange={e => {
+									const newCharsPerLine = parseInt(e.target.value, 10);
+									setCharsPerLine(newCharsPerLine);
+									if (keepAspectRatioCheckboxRef.current?.checked) {
+										setCharsPerColumn(Math.round(newCharsPerLine / aspectRatio));
+									}
+								}}/>
+							<input type={'number'} placeholder={'Chars per column'} defaultValue={charsPerColumn}
+								ref={charsPerColumnAreaRef} min={1}
+								onChange={e => {
+									const newCharsPerColumn = parseInt(e.target.value, 10);
+									setCharsPerColumn(newCharsPerColumn);
+									if (keepAspectRatioCheckboxRef.current?.checked) {
+										setCharsPerLine(Math.round(aspectRatio * newCharsPerColumn));
+									}
+								}}/>
+							<input type={'checkbox'} ref={keepAspectRatioCheckboxRef}
+								onChange={e => {
+									if (e.target.checked) {
+										setAspectRatio(charsPerLine / charsPerColumn);
+									}
+								}}/>
 							<input ref={inputRef} style={{display: 'none'}} type='file' accept='image/*'
 								onChange={handleImageChange}/>
 							<button className={'image-input-button'} onClick={() => {
