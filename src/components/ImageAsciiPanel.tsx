@@ -115,19 +115,31 @@ const ImageAsciiPanel = () => {
 							<input type={'number'} placeholder={'Chars per line'} defaultValue={charsPerLine}
 								ref={charsPerLineAreaRef} min={1}
 								onChange={e => {
+									if (e.target.value === '') {
+										return;
+									}
+
 									const newCharsPerLine = parseInt(e.target.value, 10);
 									setCharsPerLine(newCharsPerLine);
 									if (keepAspectRatioCheckboxRef.current?.checked) {
-										setCharsPerColumn(Math.round(newCharsPerLine / aspectRatio));
+										const newCharsPerColumn = Math.round(newCharsPerLine / aspectRatio);
+										setCharsPerColumn(newCharsPerColumn);
+										charsPerColumnAreaRef.current!.value = newCharsPerColumn.toString();
 									}
 								}}/>
 							<input type={'number'} placeholder={'Chars per column'} defaultValue={charsPerColumn}
 								ref={charsPerColumnAreaRef} min={1}
 								onChange={e => {
+									if (e.target.value === '') {
+										return;
+									}
+
 									const newCharsPerColumn = parseInt(e.target.value, 10);
 									setCharsPerColumn(newCharsPerColumn);
 									if (keepAspectRatioCheckboxRef.current?.checked) {
-										setCharsPerLine(Math.round(aspectRatio * newCharsPerColumn));
+										const newCharsPerLine = Math.round(newCharsPerColumn * aspectRatio);
+										setCharsPerLine(newCharsPerLine);
+										charsPerLineAreaRef.current!.value = newCharsPerLine.toString();
 									}
 								}}/>
 							<input type={'checkbox'} ref={keepAspectRatioCheckboxRef}
