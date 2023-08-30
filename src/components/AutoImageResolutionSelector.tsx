@@ -3,25 +3,35 @@ import React, {useRef, useState} from 'react';
 type AutoImageResolutionSelectorProps = {
 	autoResolutionBase: number;
 	setAutoResolutionBase: (newAutoResolutionBase: number) => void;
+	useLineBase: boolean;
+	setUseLineBase: (newUseLineBase: boolean) => void;
 };
 
 export const AutoImageResolutionSelector = (props: AutoImageResolutionSelectorProps) => {
 	const autoResolutionBaseRef = useRef<HTMLInputElement>(null);
-	const radioLineRef = useRef<HTMLInputElement>(null);
 
 	return (
 		<>
 			<input type={'radio'} name={'auto-resolution-base'}
-				id={'auto-resolution-base-line'} ref={radioLineRef}/>
+				id={'auto-resolution-base-line'} onChange={
+					() => {
+						props.setUseLineBase(true);
+					}
+				} checked={props.useLineBase}/>
 			<label htmlFor={'auto-resolution-base-line'}
 			>Define chars per line</label>
 			<input type={'radio'} name={'auto-resolution-base'}
-				id={'auto-resolution-base-column'}/>
+				id={'auto-resolution-base-column'}
+				onChange={
+					() => {
+						props.setUseLineBase(false);
+					}
+				} checked={!props.useLineBase}/>
 			<label htmlFor={'auto-resolution-base-column'}
 			>Define chars per column</label>
 
 			<p>{
-				radioLineRef.current?.checked ? 'Chars per line' : 'Chars per column'
+				props.useLineBase ? 'Chars per line' : 'Chars per column'
 			}</p>
 			<input type={'number'} placeholder={'Chars per line/column'}
 				value={props.autoResolutionBase} ref={autoResolutionBaseRef} min={1}

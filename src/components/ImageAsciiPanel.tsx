@@ -24,14 +24,14 @@ const ImageAsciiPanel = () => {
 	const [useAutoAspectRatio, setUseAutoAspectRatio] = useState(true);
 
 	// Settings for manual resolution
-	const [charsPerLine, setCharsPerLine] = useState(160);
-	const [charsPerColumn, setCharsPerColumn] = useState(90);
+	const [manualCharsPerLine, setManualCharsPerLine] = useState(160);
+	const [manualCharsPerColumn, setManualCharsPerColumn] = useState(90);
 
-	// Settings to calculate the chars per line/column based on the image aspect ratio
+	// Settings to calculate the chars per line/column based on the image aspect ratio and a selected line/column base
 	const [autoResolutionBase, setAutoResolutionBase] = useState(200);
-
-	const calculateCharsPerColumn = (image: HTMLImageElement) => Math.round(charsPerLine * (image.height / image.width));
-	const calculateCharsPerLine = (image: HTMLImageElement) => Math.round(charsPerColumn * (image.width / image.height));
+	const [useLineBase, setUseLineBase] = useState(false);
+	const calculateCharsPerColumn = (image: HTMLImageElement) => Math.round(manualCharsPerLine * (image.height / image.width));
+	const calculateCharsPerLine = (image: HTMLImageElement) => Math.round(manualCharsPerColumn * (image.width / image.height));
 
 	// Handle the copy to clipboard button click
 	const copyToClipboard = async (text: string) => {
@@ -53,13 +53,11 @@ const ImageAsciiPanel = () => {
 					img.src = reader.result as string;
 					img.onload = () => {
 						if (useAutoAspectRatio) {
-							// const newCharsPerLine = selectedAutoResolutionBase === 'line' ? autoResolutionBase : calculateCharsPerLine(img);
-							// const newCharsPerColumn = selectedAutoResolutionBase === 'line' ? calculateCharsPerColumn(img) : autoResolutionBase;
-							// setFinalCharsPerLine(newCharsPerLine);
-							// setFinalCharsPerColumn(newCharsPerColumn);
+							setFinalCharsPerLine(useLineBase ? autoResolutionBase : calculateCharsPerLine(img));
+							setFinalCharsPerColumn(useLineBase ? calculateCharsPerColumn(img) : autoResolutionBase);
 						} else {
-							setFinalCharsPerLine(charsPerLine);
-							setFinalCharsPerColumn(charsPerColumn);
+							setFinalCharsPerLine(manualCharsPerLine);
+							setFinalCharsPerColumn(manualCharsPerColumn);
 						}
 
 						setIsImageReady(true);
@@ -141,12 +139,14 @@ const ImageAsciiPanel = () => {
 									? (
 										<AutoImageResolutionSelector autoResolutionBase={autoResolutionBase}
 											setAutoResolutionBase={setAutoResolutionBase}
+											useLineBase={useLineBase}
+											setUseLineBase={setUseLineBase}
 										/>
 									) : (
-										<ManualImageResolutionSelector charsPerLine={charsPerLine}
-											charsPerColumn={charsPerColumn}
-											setCharsPerLine={setCharsPerLine}
-											setCharsPerColumn={setCharsPerColumn}
+										<ManualImageResolutionSelector charsPerLine={manualCharsPerLine}
+											charsPerColumn={manualCharsPerColumn}
+											setCharsPerLine={setManualCharsPerLine}
+											setCharsPerColumn={setManualCharsPerColumn}
 										/>
 									)
 							}

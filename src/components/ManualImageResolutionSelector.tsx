@@ -5,7 +5,6 @@ type ManualImageResolutionSelectorProps = {
 	charsPerColumn: number;
 	setCharsPerLine: (newCharsPerLine: number) => void;
 	setCharsPerColumn: (newCharsPerColumn: number) => void;
-
 };
 
 export const ManualImageResolutionSelector = (props: ManualImageResolutionSelectorProps) => {
