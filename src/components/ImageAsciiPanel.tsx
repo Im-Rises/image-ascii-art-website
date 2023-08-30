@@ -116,6 +116,7 @@ const ImageAsciiPanel = () => {
 								ref={charsPerLineAreaRef} min={1}
 								onChange={e => {
 									if (e.target.value === '') {
+										charsPerLineAreaRef.current!.value = charsPerLine.toString();
 										return;
 									}
 
@@ -131,6 +132,7 @@ const ImageAsciiPanel = () => {
 								ref={charsPerColumnAreaRef} min={1}
 								onChange={e => {
 									if (e.target.value === '') {
+										charsPerColumnAreaRef.current!.value = charsPerColumn.toString();
 										return;
 									}
 
