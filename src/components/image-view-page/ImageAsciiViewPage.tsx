@@ -8,12 +8,12 @@ type ImageAsciiViewPageProps = {
 	finalCharsPerLine: number;
 	finalCharsPerColumn: number;
 	ejectImage: () => void;
-	preTagRef: React.RefObject<HTMLPreElement>;
 };
 
 export const ImageAsciiViewPage = (props: ImageAsciiViewPageProps) => {
 	const [useColor, setUseColor] = useState(false);
 	const parentRef = React.useRef<HTMLDivElement>(null);
+	const preTagRef = React.useRef<HTMLPreElement>(null);
 
 	// Handle the copy to clipboard button click
 	const copyToClipboard = async (text: string) => {
@@ -41,7 +41,7 @@ export const ImageAsciiViewPage = (props: ImageAsciiViewPageProps) => {
 						charsPerColumn={props.finalCharsPerColumn}
 						fontColor={'white'}
 						backgroundColor={'black'}
-						preTagRef={props.preTagRef}
+						preTagRef={preTagRef}
 					/>
 				</div>
 				<div>
@@ -50,7 +50,7 @@ export const ImageAsciiViewPage = (props: ImageAsciiViewPageProps) => {
 						onClick={toggleColor}>
 					</button>
 					<button className={'Button-Copy-Clipboard'}
-						onClick={async () => copyToClipboard(props.preTagRef.current!.innerText)}>
+						onClick={async () => copyToClipboard(preTagRef.current!.innerText)}>
 						<img src={CopyImage} alt={'CopyLogoImage'}/>
 					</button>
 					<button className={'Button-Eject-Image'} onClick={props.ejectImage}>

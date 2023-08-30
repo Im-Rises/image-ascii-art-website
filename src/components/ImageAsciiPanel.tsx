@@ -1,6 +1,4 @@
 import React, {useRef, useState} from 'react';
-import {ImageAscii, ArtTypeEnum} from 'image-ascii-art';
-import CopyImage from '../images/copy.svg';
 import './ImageAsciiPanel.scss';
 import GitHubProjectPanel from './github/GitHubProjectPanel';
 import {AUTHOR, GITHUB_URL} from '../constants/pixel-ascii';
@@ -15,9 +13,6 @@ const ImageAsciiPanel = () => {
 	const [isImageReady, setIsImageReady] = useState(false);
 	const [finalCharsPerLine, setFinalCharsPerLine] = useState(0);
 	const [finalCharsPerColumn, setFinalCharsPerColumn] = useState(0);
-
-	// Settings elements for ImageAscii
-	const preTagRef = useRef<HTMLPreElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	// Mode resolution selection
@@ -73,8 +68,7 @@ const ImageAsciiPanel = () => {
 						<ImageAsciiViewPage image={image!}
 							finalCharsPerLine={finalCharsPerLine}
 							finalCharsPerColumn={finalCharsPerColumn}
-							ejectImage={ejectImage}
-							preTagRef={preTagRef}/>
+							ejectImage={ejectImage}/>
 					</>
 				)
 				: (
