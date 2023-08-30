@@ -7,6 +7,7 @@ import {AUTHOR, GITHUB_URL} from '../constants/pixel-ascii';
 import {AutoImageResolutionSelector} from './resolution-parameters/AutoImageResolutionSelector';
 import {ManualImageResolutionSelector} from './resolution-parameters/ManualImageResolutionSelector';
 import {ImageAsciiViewPage} from './image-view-page/ImageAsciiViewPage';
+import {ModeResolutionSelector} from './mode-resolution-selector/ModeResolutionSelector';
 
 const ImageAsciiPanel = () => {
 	// Image data elements
@@ -18,7 +19,6 @@ const ImageAsciiPanel = () => {
 	// Settings elements for ImageAscii
 	const preTagRef = useRef<HTMLPreElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
-	const parentRef = useRef<HTMLDivElement>(null);
 
 	// Mode resolution selection
 	const [useAutoAspectRatio, setUseAutoAspectRatio] = useState(true);
@@ -80,22 +80,10 @@ const ImageAsciiPanel = () => {
 				: (
 					<>
 						<h1 className={'app-title'}>Image ASCII</h1>
-
-						<div className={'mode-selection-container'}>
-							<h2>Mode selection</h2>
-							<input type={'radio'} name={'mode-selection'} id={'mode-selection-auto'}
-								checked={useAutoAspectRatio}
-								onChange={() => {
-									setUseAutoAspectRatio(true);
-								}}/>
-							<label htmlFor={'mode-selection-auto'}>Auto resolution</label>
-							<input type={'radio'} name={'mode-selection'} id={'mode-selection-manual'}
-								checked={!useAutoAspectRatio}
-								onChange={() => {
-									setUseAutoAspectRatio(false);
-								}}/>
-							<label htmlFor={'mode-selection-manual'}>Manual resolution</label>
-						</div>
+						<>
+							<ModeResolutionSelector useAutoAspectRatio={useAutoAspectRatio}
+								setUseAutoAspectRatio={setUseAutoAspectRatio}/>
+						</>
 
 						<div className={'image-input-container'}>
 							{
