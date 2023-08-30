@@ -7,7 +7,7 @@ import {AUTHOR, GITHUB_URL} from '../constants/pixel-ascii';
 
 const ImageAsciiPanel = () => {
 	// Define the ascii art chars per line
-	const charsPerLine = 200;
+	const [charsPerLine, setCharsPerLine] = useState(200);
 	const [charsPerColumn, setCharsPerColumn] = useState(0);
 	const [image, setImage] = useState<HTMLImageElement>();
 	const [isImageReady, setIsImageReady] = useState(false);
@@ -107,6 +107,12 @@ const ImageAsciiPanel = () => {
 					<>
 						<h1 className={'app-title'}>Image ASCII</h1>
 						<div className={'image-input-container'}>
+							<input type={'number'} placeholder={'Chars per line'} onChange={e => {
+								setCharsPerLine(parseInt(e.target.value, 10));
+							}}/>
+							<input type={'number'} placeholder={'Chars per column'} onChange={e => {
+								setCharsPerColumn(parseInt(e.target.value, 10));
+							}}/>
 							<input ref={inputRef} style={{display: 'none'}} type='file' accept='image/*'
 								onChange={handleImageChange}/>
 							<button className={'image-input-button'} onClick={() => {
