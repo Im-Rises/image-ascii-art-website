@@ -6,12 +6,12 @@ import GitHubProjectPanel from './GitHubProjectPanel';
 import {AUTHOR, GITHUB_URL} from '../constants/pixel-ascii';
 import {AutoImageResolutionSelector} from './AutoImageResolutionSelector';
 import {ManualImageResolutionSelector} from './ManualImageResolutionSelector';
+import {ImageAsciiViewPage} from './ImageAsciiViewPage';
 
 const ImageAsciiPanel = () => {
 	// Image data elements
 	const [image, setImage] = useState<HTMLImageElement>();
 	const [isImageReady, setIsImageReady] = useState(false);
-	const [useColor, setUseColor] = useState(false);
 	const [finalCharsPerLine, setFinalCharsPerLine] = useState(0);
 	const [finalCharsPerColumn, setFinalCharsPerColumn] = useState(0);
 
@@ -32,16 +32,6 @@ const ImageAsciiPanel = () => {
 	const [useLineBase, setUseLineBase] = useState(false);
 	const calculateCharsPerColumn = (image: HTMLImageElement) => Math.round(manualCharsPerLine * (image.height / image.width));
 	const calculateCharsPerLine = (image: HTMLImageElement) => Math.round(manualCharsPerColumn * (image.width / image.height));
-
-	// Handle the copy to clipboard button click
-	const copyToClipboard = async (text: string) => {
-		try {
-			await navigator.clipboard.writeText(text);
-			console.log('Text copied to clipboard');
-		} catch (err: unknown) {
-			console.error('Failed to copy text: ', err);
-		}
-	};
 
 	const handleImageChange = () => {
 		if (inputRef.current?.files?.length) {
@@ -70,14 +60,9 @@ const ImageAsciiPanel = () => {
 		}
 	};
 
-	const toggleColor = () => {
-		setUseColor(!useColor);
-	};
-
 	const ejectImage = () => {
 		setIsImageReady(false);
 		setImage(undefined);
-		setUseColor(false);
 	};
 
 	return (
@@ -85,32 +70,11 @@ const ImageAsciiPanel = () => {
 			{isImageReady
 				? (
 					<>
-						<div className={'image-ascii-panel'}>
-							<div ref={parentRef} className={'image-ascii-holder'}>
-								<ImageAscii
-									image={image!}
-									parentRef={parentRef}
-									artType={useColor ? ArtTypeEnum.ASCII_COLOR_BG_IMAGE : ArtTypeEnum.ASCII}
-									charsPerLine={finalCharsPerLine}
-									charsPerColumn={finalCharsPerColumn}
-									fontColor={'white'}
-									backgroundColor={'black'}
-									preTagRef={preTagRef}
-								/>
-							</div>
-							<div>
-								<button
-									className={`${'Button-Toggle-Mode'} ${useColor ? 'Button-Toggle-BW' : 'Button-Toggle-Color'}`}
-									onClick={toggleColor}>
-								</button>
-								<button className={'Button-Copy-Clipboard'}
-									onClick={async () => copyToClipboard(preTagRef.current!.innerText)}>
-									<img src={CopyImage} alt={'CopyLogoImage'}/>
-								</button>
-								<button className={'Button-Eject-Image'} onClick={ejectImage}>
-								</button>
-							</div>
-						</div>
+						<ImageAsciiViewPage image={image!}
+							finalCharsPerLine={finalCharsPerLine}
+							finalCharsPerColumn={finalCharsPerColumn}
+							ejectImage={ejectImage}
+							preTagRef={preTagRef}/>
 					</>
 				)
 				: (
