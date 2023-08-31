@@ -8,50 +8,49 @@ type AutoImageResolutionSelectorProps = {
 	setUseLineBase: (newUseLineBase: boolean) => void;
 };
 
-export const AutoResolutionSelector = (props: AutoImageResolutionSelectorProps) => {
-	const autoResolutionBaseRef = useRef<HTMLInputElement>(null);
+export const AutoResolutionSelector = (props: AutoImageResolutionSelectorProps) => (
+	<div className={'auto-resolution-panel'}>
+		<p>Define the number of characters per line or column</p>
 
-	return (
-		<div className={'auto-resolution-panel'}>
-			{/* <p>Choose base colum or line</p> */}
-			<div className={'resolution-base-switcher'}>
-				{/* <div> */}
-				{/*	<input type={'radio'} name={'auto-resolution-base'} */}
-				{/*		id={'auto-resolution-base-line'} onChange={ */}
-				{/*			() => { */}
-				{/*				props.setUseLineBase(true); */}
-				{/*			} */}
-				{/*		} checked={props.useLineBase}/> */}
-				{/*	<label htmlFor={'auto-resolution-base-line'} */}
-				{/*	>Define chars per line</label> */}
-				{/* </div> */}
-				{/* <div> */}
-				{/*	<input type={'radio'} name={'auto-resolution-base'} */}
-				{/*		id={'auto-resolution-base-column'} */}
-				{/*		onChange={ */}
-				{/*			() => { */}
-				{/*				props.setUseLineBase(false); */}
-				{/*			} */}
-				{/*		} checked={!props.useLineBase}/> */}
-				{/*	<label htmlFor={'auto-resolution-base-column'} */}
-				{/*	>Define chars per column</label> */}
-				{/* </div> */}
+		<div>
+			<div>
+				<input type={'radio'} name={'auto-resolution-base'} id={'auto-resolution-base-line'}
+					checked={props.useLineBase}
+					onClick={() => {
+						props.setUseLineBase(true);
+					}}/>
+				<label htmlFor={'auto-resolution-base-line'}>Chars per line:</label>
 			</div>
+			<input type={'number'} placeholder={'Chars per line'} className={props.useLineBase ? '' : 'locked-input'}
+				min={1}
+				onChange={e => {
+					if (e.target.value === '' || e.target.value === '0') {
+						return;
+					}
 
-			<div className={'resolution-base-selector'}>
-				{/* <label */}
-				{/*	htmlFor={'auto-resolution-base'}>{props.useLineBase ? 'Chars per line:' : 'Chars per column:'}</label> */}
-				{/* <input type={'number'} placeholder={'Chars per line/column'} */}
-				{/*	value={props.autoResolutionBase} ref={autoResolutionBaseRef} min={1} */}
-				{/*	onChange={e => { */}
-				{/*		if (e.target.value === '') { */}
-				{/*			autoResolutionBaseRef.current!.value = props.autoResolutionBase.toString(); */}
-				{/*			return; */}
-				{/*		} */}
-
-				{/*		props.setAutoResolutionBase(parseInt(e.target.value, 10)); */}
-				{/*	}}/> */}
-			</div>
+					props.setAutoResolutionBase(parseInt(e.target.value, 10));
+				}}/>
 		</div>
-	);
-};
+
+		<div>
+			<div>
+				<input type={'radio'} name={'auto-resolution-base'} id={'auto-resolution-base-column'}
+					checked={!props.useLineBase}
+					onClick={() => {
+						props.setUseLineBase(false);
+					}}/>
+				<label htmlFor={'auto-resolution-base-column'}>Chars per column:</label>
+			</div>
+			<input type={'number'} placeholder={'Chars per column'} className={props.useLineBase ? 'locked-input' : ''}
+				min={1}
+				onChange={e => {
+					if (e.target.value === '' || e.target.value === '0') {
+						return;
+					}
+
+					props.setAutoResolutionBase(parseInt(e.target.value, 10));
+				}}/>
+		</div>
+
+	</div>
+);
