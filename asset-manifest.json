@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/image-ascii-art-website/static/css/main.18aea2a7.css",
+    "main.js": "/image-ascii-art-website/static/js/main.bdcd5dcf.js",
+    "static/js/496.b6bbedd5.chunk.js": "/image-ascii-art-website/static/js/496.b6bbedd5.chunk.js",
+    "static/media/github.svg": "/image-ascii-art-website/static/media/github.255db585f8a0eb28a1e4deb91bde207d.svg",
+    "index.html": "/image-ascii-art-website/index.html",
+    "static/media/copy.svg": "/image-ascii-art-website/static/media/copy.dcb6bf73de369d114f61833d940384c1.svg",
+    "main.18aea2a7.css.map": "/image-ascii-art-website/static/css/main.18aea2a7.css.map",
+    "main.bdcd5dcf.js.map": "/image-ascii-art-website/static/js/main.bdcd5dcf.js.map",
+    "496.b6bbedd5.chunk.js.map": "/image-ascii-art-website/static/js/496.b6bbedd5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.18aea2a7.css",
+    "static/js/main.bdcd5dcf.js"
+  ]
+}
