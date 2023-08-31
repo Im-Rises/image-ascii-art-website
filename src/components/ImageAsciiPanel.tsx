@@ -2,8 +2,8 @@ import React, {useRef, useState} from 'react';
 import './ImageAsciiPanel.scss';
 import GitHubProjectPanel from './github/GitHubProjectPanel';
 import {AUTHOR, GITHUB_URL} from '../constants/pixel-ascii';
-import {AutoImageResolutionSelector} from './resolution-parameters/AutoImageResolutionSelector';
-import {ManualImageResolutionSelector} from './resolution-parameters/ManualImageResolutionSelector';
+import {AutoResolutionSelector} from './resolution-parameters/AutoResolutionSelector';
+import {ManualResolutionSelector} from './resolution-parameters/ManualResolutionSelector';
 import {ImageAsciiViewPage} from './image-view-page/ImageAsciiViewPage';
 import {ModeResolutionSelector} from './mode-resolution-selector/ModeResolutionSelector';
 
@@ -76,38 +76,39 @@ const ImageAsciiPanel = () => {
 				: (
 					<>
 						<h1 className={'app-title'}>Image ASCII</h1>
-						<>
+						<div className={'mode-selector-container'}>
 							<ModeResolutionSelector useAutoAspectRatio={useAutoAspectRatio}
 								setUseAutoAspectRatio={setUseAutoAspectRatio}/>
-						</>
-
+						</div>
 						<div className={'image-input-container'}>
-							{
-								useAutoAspectRatio
-									? (
-										<AutoImageResolutionSelector autoResolutionBase={autoResolutionBase}
-											setAutoResolutionBase={setAutoResolutionBase}
-											useLineBase={useLineBase}
-											setUseLineBase={setUseLineBase}
-										/>
-									) : (
-										<ManualImageResolutionSelector charsPerLine={manualCharsPerLine}
-											charsPerColumn={manualCharsPerColumn}
-											setCharsPerLine={setManualCharsPerLine}
-											setCharsPerColumn={setManualCharsPerColumn}
-										/>
-									)
-							}
-
-							<>
+							<div className={'image-settings-container'}>
+								{
+									useAutoAspectRatio
+										? (
+											<AutoResolutionSelector autoResolutionBase={autoResolutionBase}
+												setAutoResolutionBase={setAutoResolutionBase}
+												useLineBase={useLineBase}
+												setUseLineBase={setUseLineBase}
+											/>
+										) : (
+											<ManualResolutionSelector charsPerLine={manualCharsPerLine}
+												charsPerColumn={manualCharsPerColumn}
+												setCharsPerLine={setManualCharsPerLine}
+												setCharsPerColumn={setManualCharsPerColumn}
+											/>
+										)
+								}
+							</div>
+							<div className={'image-input-button'}>
 								<input ref={inputRef} style={{display: 'none'}} type='file' accept='image/*'
 									onChange={handleImageChange}/>
-								<button className={'image-input-button'} onClick={() => {
+								<button onClick={() => {
 									inputRef.current?.click();
 								}}>Select image
 								</button>
-							</>
+							</div>
 						</div>
+
 						<GitHubProjectPanel link={GITHUB_URL}
 							author={AUTHOR}/>
 					</>

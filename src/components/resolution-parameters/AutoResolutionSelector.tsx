@@ -7,7 +7,7 @@ type AutoImageResolutionSelectorProps = {
 	setUseLineBase: (newUseLineBase: boolean) => void;
 };
 
-export const AutoImageResolutionSelector = (props: AutoImageResolutionSelectorProps) => {
+export const AutoResolutionSelector = (props: AutoImageResolutionSelectorProps) => {
 	const autoResolutionBaseRef = useRef<HTMLInputElement>(null);
 
 	return (

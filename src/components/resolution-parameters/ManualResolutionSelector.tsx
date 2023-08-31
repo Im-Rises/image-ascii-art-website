@@ -7,7 +7,7 @@ type ManualImageResolutionSelectorProps = {
 	setCharsPerColumn: (newCharsPerColumn: number) => void;
 };
 
-export const ManualImageResolutionSelector = (props: ManualImageResolutionSelectorProps) => {
+export const ManualResolutionSelector = (props: ManualImageResolutionSelectorProps) => {
 	const keepAspectRatioCheckboxRef = useRef<HTMLInputElement>(null);
 	const charsPerLineAreaRef = useRef<HTMLInputElement>(null);
 	const charsPerColumnAreaRef = useRef<HTMLInputElement>(null);
@@ -55,6 +55,7 @@ export const ManualImageResolutionSelector = (props: ManualImageResolutionSelect
 						setAspectRatio(props.charsPerLine / props.charsPerColumn);
 					}
 				}}/>
+			<label htmlFor={'keep-aspect-ratio'}>Keep aspect ratio</label>
 		</>
 	);
 };
