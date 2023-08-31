@@ -26,8 +26,12 @@
   justify-content: center;
   margin: 0 0 0 0;
 
+  h2 {
+    color: #ffffff;
+  }
+
   .image-settings-container {
-    height: 65%;
+    height: 55%;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -35,7 +39,7 @@
   }
 
   .image-input-button {
-    height: 35%;
+    height: 45%;
     width: 100%;
     justify-content: center;
     align-items: center;

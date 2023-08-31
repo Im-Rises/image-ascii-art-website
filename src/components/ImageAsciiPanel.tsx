@@ -24,9 +24,9 @@ const ImageAsciiPanel = () => {
 
 	// Settings to calculate the chars per line/column based on the image aspect ratio and a selected line/column base
 	const [autoResolutionBase, setAutoResolutionBase] = useState(200);
-	const [useLineBase, setUseLineBase] = useState(false);
-	const calculateCharsPerColumn = (image: HTMLImageElement) => Math.round(manualCharsPerLine * (image.height / image.width));
-	const calculateCharsPerLine = (image: HTMLImageElement) => Math.round(manualCharsPerColumn * (image.width / image.height));
+	const [useLineBase, setUseLineBase] = useState(true);
+	const calculateCharsPerColumn = (image: HTMLImageElement) => Math.round(autoResolutionBase * (image.height / image.width));
+	const calculateCharsPerLine = (image: HTMLImageElement) => Math.round(autoResolutionBase * (image.width / image.height));
 
 	// Handle image selection
 	const handleImageChange = () => {
@@ -81,6 +81,7 @@ const ImageAsciiPanel = () => {
 								setUseAutoAspectRatio={setUseAutoAspectRatio}/>
 						</div>
 						<div className={'image-input-container'}>
+							<h2>Choose base colum or line</h2>
 							<div className={'image-settings-container'}>
 								{
 									useAutoAspectRatio

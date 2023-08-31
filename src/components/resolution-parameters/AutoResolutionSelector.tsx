@@ -1,4 +1,5 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
+import './AutoResolutionSelector.scss';
 
 type AutoImageResolutionSelectorProps = {
 	autoResolutionBase: number;
@@ -11,38 +12,45 @@ export const AutoResolutionSelector = (props: AutoImageResolutionSelectorProps) 
 	const autoResolutionBaseRef = useRef<HTMLInputElement>(null);
 
 	return (
-		<>
-			<input type={'radio'} name={'auto-resolution-base'}
-				id={'auto-resolution-base-line'} onChange={
-					() => {
-						props.setUseLineBase(true);
-					}
-				} checked={props.useLineBase}/>
-			<label htmlFor={'auto-resolution-base-line'}
-			>Define chars per line</label>
-			<input type={'radio'} name={'auto-resolution-base'}
-				id={'auto-resolution-base-column'}
-				onChange={
-					() => {
-						props.setUseLineBase(false);
-					}
-				} checked={!props.useLineBase}/>
-			<label htmlFor={'auto-resolution-base-column'}
-			>Define chars per column</label>
+		<div className={'auto-resolution-panel'}>
+			<div className={'resolution-base-switcher'}>
+				<div>
+					<input type={'radio'} name={'auto-resolution-base'}
+						id={'auto-resolution-base-line'} onChange={
+							() => {
+								props.setUseLineBase(true);
+							}
+						} checked={props.useLineBase}/>
+					<label htmlFor={'auto-resolution-base-line'}
+					>Define chars per line</label>
+				</div>
+				<div>
+					<input type={'radio'} name={'auto-resolution-base'}
+						id={'auto-resolution-base-column'}
+						onChange={
+							() => {
+								props.setUseLineBase(false);
+							}
+						} checked={!props.useLineBase}/>
+					<label htmlFor={'auto-resolution-base-column'}
+					>Define chars per column</label>
+				</div>
+			</div>
 
-			<p>{
-				props.useLineBase ? 'Chars per line' : 'Chars per column'
-			}</p>
-			<input type={'number'} placeholder={'Chars per line/column'}
-				value={props.autoResolutionBase} ref={autoResolutionBaseRef} min={1}
-				onChange={e => {
-					if (e.target.value === '') {
-						autoResolutionBaseRef.current!.value = props.autoResolutionBase.toString();
-						return;
-					}
+			<div className={'resolution-base-selector'}>
+				<label
+					htmlFor={'auto-resolution-base'}>{props.useLineBase ? 'Chars per line:' : 'Chars per column:'}</label>
+				<input type={'number'} placeholder={'Chars per line/column'}
+					value={props.autoResolutionBase} ref={autoResolutionBaseRef} min={1}
+					onChange={e => {
+						if (e.target.value === '') {
+							autoResolutionBaseRef.current!.value = props.autoResolutionBase.toString();
+							return;
+						}
 
-					props.setAutoResolutionBase(parseInt(e.target.value, 10));
-				}}/>
-		</>
+						props.setAutoResolutionBase(parseInt(e.target.value, 10));
+					}}/>
+			</div>
+		</div>
 	);
 };

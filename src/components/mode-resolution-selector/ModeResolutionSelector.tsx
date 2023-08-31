@@ -1,4 +1,5 @@
 import React from 'react';
+import './ModeResolutionSelector.scss';
 
 type ModeResolutionSelectorProps = {
 	useAutoAspectRatio: boolean;
