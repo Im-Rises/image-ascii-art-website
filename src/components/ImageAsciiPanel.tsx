@@ -1,34 +1,34 @@
 import React, {useRef, useState} from 'react';
-import {ImageAscii, ArtTypeEnum} from 'image-ascii-art';
-import CopyImage from '../images/copy.svg';
 import './ImageAsciiPanel.scss';
-import GitHubProjectPanel from './GitHubProjectPanel';
+import GitHubProjectPanel from './github/GitHubProjectPanel';
 import {AUTHOR, GITHUB_URL} from '../constants/pixel-ascii';
+import {AutoResolutionSelector} from './resolution-parameters/AutoResolutionSelector';
+import {ManualResolutionSelector} from './resolution-parameters/ManualResolutionSelector';
+import {ImageAsciiViewPage} from './image-view-page/ImageAsciiViewPage';
+import {ModeResolutionSelector} from './mode-resolution-selector/ModeResolutionSelector';
 
 const ImageAsciiPanel = () => {
-	// Define the ascii art chars per line
-	const charsPerLine = 200;
-	const [charsPerColumn, setCharsPerColumn] = useState(0);
+	// Image data elements
 	const [image, setImage] = useState<HTMLImageElement>();
 	const [isImageReady, setIsImageReady] = useState(false);
-	const [useColor, setUseColor] = useState(false);
-
-	const preTagRef = useRef<HTMLPreElement>(null);
+	const [charsPerLine, setCharsPerLine] = useState(0);
+	const [charsPerColumn, setCharsPerColumn] = useState(0);
 	const inputRef = useRef<HTMLInputElement>(null);
-	const parentRef = useRef<HTMLDivElement>(null);
 
-	const calculateCharsPerColumn = (image: HTMLImageElement) => Math.round(charsPerLine * (image.height / image.width));
+	// Mode resolution selection
+	const [useAutoAspectRatio, setUseAutoAspectRatio] = useState(true);
 
-	// Handle the copy to clipboard button click
-	const copyToClipboard = async (text: string) => {
-		try {
-			await navigator.clipboard.writeText(text);
-			console.log('Text copied to clipboard');
-		} catch (err: unknown) {
-			console.error('Failed to copy text: ', err);
-		}
-	};
+	// Settings for manual resolution
+	const [manualCharsPerLine, setManualCharsPerLine] = useState(160);
+	const [manualCharsPerColumn, setManualCharsPerColumn] = useState(90);
 
+	// Settings to calculate the chars per line/column based on the image aspect ratio and a selected line/column base
+	const [autoResolutionBase, setAutoResolutionBase] = useState(200);
+	const [useLineBase, setUseLineBase] = useState(true);
+	const calculateCharsPerColumn = (image: HTMLImageElement) => Math.round(autoResolutionBase * (image.height / image.width));
+	const calculateCharsPerLine = (image: HTMLImageElement) => Math.round(autoResolutionBase * (image.width / image.height));
+
+	// Handle image selection
 	const handleImageChange = () => {
 		if (inputRef.current?.files?.length) {
 			const file = inputRef.current.files[0];
@@ -38,7 +38,14 @@ const ImageAsciiPanel = () => {
 					const img = new Image();
 					img.src = reader.result as string;
 					img.onload = () => {
-						setCharsPerColumn(calculateCharsPerColumn(img));
+						if (useAutoAspectRatio) {
+							setCharsPerLine(useLineBase ? autoResolutionBase : calculateCharsPerLine(img));
+							setCharsPerColumn(useLineBase ? calculateCharsPerColumn(img) : autoResolutionBase);
+						} else {
+							setCharsPerLine(manualCharsPerLine);
+							setCharsPerColumn(manualCharsPerColumn);
+						}
+
 						setIsImageReady(true);
 						setImage(img);
 					};
@@ -49,71 +56,59 @@ const ImageAsciiPanel = () => {
 		}
 	};
 
-	const toggleColor = () => {
-		setUseColor(!useColor);
-	};
-
+	// Handle image ejection
 	const ejectImage = () => {
 		setIsImageReady(false);
 		setImage(undefined);
-		setUseColor(false);
 	};
-
-	// // Default image (Uncomment it to use it)
-	// useEffect(() => {
-	// 	const img = new Image();
-	// 	img.src = ImageDemo;
-	// 	img.onload = () => {
-	// 		setCharsPerColumn(calculateCharsPerColumn(img));
-	// 		setIsImageReady(true);
-	// 		setImage(img);
-	// 	};
-	// }, []);
 
 	return (
 		<div>
 			{isImageReady
 				? (
 					<>
-						<div className={'image-ascii-panel'}>
-							<div ref={parentRef} className={'image-ascii-holder'}>
-								<ImageAscii
-									image={image!}
-									parentRef={parentRef}
-									artType={useColor ? ArtTypeEnum.ASCII_COLOR_BG_IMAGE : ArtTypeEnum.ASCII}
-									charsPerLine={charsPerLine}
-									charsPerColumn={charsPerColumn}
-									fontColor={'white'}
-									backgroundColor={'black'}
-									preTagRef={preTagRef}
-								/>
-							</div>
-							<div>
-								<button
-									className={`${'Button-Toggle-Mode'} ${useColor ? 'Button-Toggle-BW' : 'Button-Toggle-Color'}`}
-									onClick={toggleColor}>
-								</button>
-								<button className={'Button-Copy-Clipboard'}
-									onClick={async () => copyToClipboard(preTagRef.current!.innerText)}>
-									<img src={CopyImage} alt={'CopyLogoImage'}/>
-								</button>
-								<button className={'Button-Eject-Image'} onClick={ejectImage}>
-								</button>
-							</div>
-						</div>
+						<ImageAsciiViewPage image={image!}
+							finalCharsPerLine={charsPerLine}
+							finalCharsPerColumn={charsPerColumn}
+							ejectImage={ejectImage}/>
 					</>
 				)
 				: (
 					<>
 						<h1 className={'app-title'}>Image ASCII</h1>
-						<div className={'image-input-container'}>
-							<input ref={inputRef} style={{display: 'none'}} type='file' accept='image/*'
-								onChange={handleImageChange}/>
-							<button className={'image-input-button'} onClick={() => {
-								inputRef.current?.click();
-							}}>Select image
-							</button>
+						<div className={'mode-selector-container'}>
+							<ModeResolutionSelector useAutoAspectRatio={useAutoAspectRatio}
+								setUseAutoAspectRatio={setUseAutoAspectRatio}/>
 						</div>
+						<div className={'image-input-container'}>
+							<div className={'image-settings'}>
+								{
+									useAutoAspectRatio
+										? (
+											<AutoResolutionSelector autoResolutionBase={autoResolutionBase}
+												setAutoResolutionBase={setAutoResolutionBase}
+												useLineBase={useLineBase}
+												setUseLineBase={setUseLineBase}
+											/>
+										) : (
+											<ManualResolutionSelector charsPerLine={manualCharsPerLine}
+												charsPerColumn={manualCharsPerColumn}
+												setCharsPerLine={setManualCharsPerLine}
+												setCharsPerColumn={setManualCharsPerColumn}
+											/>
+										)
+								}
+							</div>
+							<div className={'image-input-button'}>
+								<input ref={inputRef} style={{display: 'none'}} type='file' accept='image/*'
+									onChange={handleImageChange}/>
+								<button onClick={() => {
+									inputRef.current?.click();
+								}}>Select image
+								</button>
+							</div>
+						</div>
+
 						<GitHubProjectPanel link={GITHUB_URL}
 							author={AUTHOR}/>
 					</>

@@ -1,0 +1,20 @@
+.auto-resolution-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+}
+
+.locked-input {
+  background-color: #f0f0f0; /* Example background color */
+  color: #808080; /* Example text color */
+  cursor: not-allowed; /* Show "not allowed" cursor */
+}

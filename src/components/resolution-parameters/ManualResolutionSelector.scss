@@ -1,0 +1,41 @@
+.manual-resolution-panel {
+  //width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+
+    label {
+    }
+
+    input {
+      right: 0;
+      text-align: center;
+    }
+  }
+
+  .keep-aspect-ratio {
+
+    display: flex;
+    flex-direction: row-reverse;
+
+    input[type="checkbox"] {
+      align-self: center;
+
+    }
+
+    label {
+
+    }
+  }
+}
