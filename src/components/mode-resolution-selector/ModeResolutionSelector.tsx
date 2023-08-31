@@ -7,7 +7,7 @@ type ModeResolutionSelectorProps = {
 };
 export const ModeResolutionSelector = (props: ModeResolutionSelectorProps) => (
 	<>
-		<div className={'mode-selection-container'}>
+		<div className={'mode-selection'}>
 			<h2>Mode selection</h2>
 			<input type={'radio'} name={'mode-selection'} id={'mode-selection-auto'}
 				checked={props.useAutoAspectRatio}

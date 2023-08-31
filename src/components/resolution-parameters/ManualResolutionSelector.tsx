@@ -59,13 +59,15 @@ export const ManualResolutionSelector = (props: ManualImageResolutionSelectorPro
 						}
 					}}/>
 			</div>
-			<input type={'checkbox'} ref={keepAspectRatioCheckboxRef} id={'keep-aspect-ratio'}
-				onChange={e => {
-					if (e.target.checked) {
-						setAspectRatio(props.charsPerLine / props.charsPerColumn);
-					}
-				}}/>
-			<label htmlFor={'keep-aspect-ratio'}>Keep aspect ratio</label>
+			<div className={'keep-aspect-ratio'}>
+				<input type={'checkbox'} ref={keepAspectRatioCheckboxRef} id={'keep-aspect-ratio'}
+					onChange={e => {
+						if (e.target.checked) {
+							setAspectRatio(props.charsPerLine / props.charsPerColumn);
+						}
+					}}/>
+				<label htmlFor={'keep-aspect-ratio'}>Keep aspect ratio</label>
+			</div>
 		</div>
 	);
 };
