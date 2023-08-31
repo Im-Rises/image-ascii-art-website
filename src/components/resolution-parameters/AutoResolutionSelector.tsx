@@ -23,6 +23,7 @@ export const AutoResolutionSelector = (props: AutoImageResolutionSelectorProps) 
 			</div>
 			<input type={'number'} placeholder={'Chars per line'} className={props.useLineBase ? '' : 'locked-input'}
 				min={1}
+				value={props.useLineBase ? props.autoResolutionBase : ''}
 				onChange={e => {
 					if (e.target.value === '' || e.target.value === '0') {
 						return;
@@ -43,6 +44,7 @@ export const AutoResolutionSelector = (props: AutoImageResolutionSelectorProps) 
 			</div>
 			<input type={'number'} placeholder={'Chars per column'} className={props.useLineBase ? 'locked-input' : ''}
 				min={1}
+				value={props.useLineBase ? '' : props.autoResolutionBase}
 				onChange={e => {
 					if (e.target.value === '' || e.target.value === '0') {
 						return;
