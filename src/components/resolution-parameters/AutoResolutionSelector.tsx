@@ -13,6 +13,7 @@ export const AutoResolutionSelector = (props: AutoImageResolutionSelectorProps) 
 
 	return (
 		<div className={'auto-resolution-panel'}>
+			{/* <h2>Choose base colum or line</h2> */}
 			<div className={'resolution-base-switcher'}>
 				<div>
 					<input type={'radio'} name={'auto-resolution-base'}

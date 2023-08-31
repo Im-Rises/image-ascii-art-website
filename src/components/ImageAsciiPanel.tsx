@@ -81,7 +81,6 @@ const ImageAsciiPanel = () => {
 								setUseAutoAspectRatio={setUseAutoAspectRatio}/>
 						</div>
 						<div className={'image-input-container'}>
-							<h2>Choose base colum or line</h2>
 							<div className={'image-settings-container'}>
 								{
 									useAutoAspectRatio
