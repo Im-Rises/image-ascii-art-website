@@ -24,7 +24,12 @@ art and change the input image to another one.
 
 ## Screenshots
 
-<img src="https://user-images.githubusercontent.com/59691442/209728294-e10691da-eb4f-43e6-880c-522417da79c6.png" alt="screenshot" style="width: 100%;">
+![pikachu-colored](https://github.com/Im-Rises/image-ascii-art-website/assets/59691442/2fa049dd-0925-462e-8dbc-bf92cdefc633)
+![pikachu-bw](https://github.com/Im-Rises/image-ascii-art-website/assets/59691442/f03e85ed-fd2e-46f7-8bc1-c7e0369c92e2)
+
+~~~
+Original Image from Pokémon by Nintendo.
+~~~
 
 ## Dependencies
 
